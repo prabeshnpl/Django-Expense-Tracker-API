@@ -7,8 +7,19 @@ class ExpenseIncome(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True,null=True)
     amount = models.DecimalField(max_digits=10,decimal_places=2)
-    transaction_types = models.CharField(choices=['credit', 'debit'])
-    tax = models.DecimalField(default=0)
-    tax_type = models.CharField(choices=['flat','percentage'],default='flat')
+
+    TRANSACTION_TYPES_CHOICES = [
+        ('credit','Credit'),
+        ('debit','Debit'),
+    ]
+    transaction_types = models.CharField(choices=TRANSACTION_TYPES_CHOICES)
+    tax = models.DecimalField(default=0,max_digits=10,decimal_places=2)
+
+    TAX_TYPE_CHOICES = [
+        ('flat', 'Flat'),
+        ('percentage', 'Percentage'),
+    ]
+
+    tax_type = models.CharField(max_length=20, choices=TAX_TYPE_CHOICES, default='flat')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
