@@ -11,8 +11,8 @@ from rest_framework.pagination import PageNumberPagination
 
 class Login(APIView):
     def get(self,request):
-        # if 'logged_in' not in request.session:
-        #     logout(request)
+        if 'logged_in' not in request.session:
+            logout(request)
         if request.user.is_authenticated:
             return Response({'message': "You are already logged in","user":request.user.username})    
         return Response({'message':"Please Login"})
@@ -46,8 +46,13 @@ class Register(APIView):
         else:
             return Response({"Message":f"{serializer.errors}"})
 
+class Logout(APIView):
+    def get(self,request):
+        logout(request)
+        return Response({"Logged Out Successfully!!"})
+
 class Expenses(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request, pk=None):
         user = request.user               
@@ -109,6 +114,3 @@ class Expenses(APIView):
             return Response({"Updated Successfully"},status=200)
         else:
             return Response(serializer.errors)
-
-
-
