@@ -19,9 +19,4 @@ class ExpenseIncomeSerializer(serializers.ModelSerializer):
         model = ExpenseIncome
         fields = '__all__'
 
-    # def create(self, validated_data):
-    #     user = self.context['user']
-    #     expenseincome = ExpenseIncome.objects.create(user=user,**validated_data)
-    #     return expenseincome
-
         
